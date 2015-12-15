@@ -6,16 +6,10 @@ In this repository, I shared some commonly used semantic analysis tools for free
 
 Anyone who is interested in this field, please contact me, I will appreciate it very much.
 
-Contact:
-QQ:       578312618
-
-Skype:    shichao.qu@live.cn
-
-
 ### What is this repository for? ###
 
-* Chinese semantic analysis is commonly used in many fields. 
-* 1.0.0
+* Semantic analysis is commonly used in many fields. In this repository, we provide some commonly used semantic analysis algorithm for anyone who is interested in it. 
+* Version: 1.0.0
 
 ### How do I get set up? ###
 
@@ -34,5 +28,10 @@ Skype:    shichao.qu@live.cn
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Repo owner: Shichao Qu
+
+Contact:
+
+QQ:       578312618
+
+Skype:    shichao.qu@live.cn
