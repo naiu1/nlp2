@@ -1,11 +1,14 @@
 # README #
 
 Welcome to Shichao's repositories!
+
 In this repository, I shared some commonly used semantic analysis tools for free. Please feel free to use it, comment it.
+
 Anyone who is interested in this field, please contact me, I will appreciate it very much.
 
 Contact:
 QQ:       578312618
+
 Skype:    shichao.qu@live.cn
 
 
