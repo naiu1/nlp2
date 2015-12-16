@@ -13,7 +13,10 @@ Anyone who is interested in this field, please contact me, I will appreciate it 
 
 ### How do I get set up? ###
 
-* Summary of set up
+* Setup
+1. Set up the python library jibe, use the following link to set it up: http://www.oschina.net/p/jieba
+
+
 * Configuration
 * Dependencies
 * Database configuration
