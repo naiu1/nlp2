@@ -9,6 +9,6 @@ class JiebaParticipator(object):
         return seg_list
 
 if __name__ == '__main__':
-    seg_list = JiebaParticipator.participate("今天的电影很不好看")
+    seg_list = JiebaParticipator.participate("今天的电影很不好看,看的非常不开心。你呢？怎么样？")
     for item in seg_list:
         print item
