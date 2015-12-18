@@ -11,18 +11,30 @@ from common import log_tool
 logger = log_tool.Logging.get_logger()
 
 class DutExtractor(object):
-    def __init__(self):
+    def __init__(self, dut_lib_file_path, negative_word_path):
         self.word_dict = dict()
-        with open('dut_sentiment_words.csv','r') as f:
+        self.negative_word_set = set()
+        with open(dut_lib_file_path,'r') as f:
             reader = csv.reader(f)
             for item in reader:
-                word = item[0].encode("UTF-8")
+                word = item[0].encode("UTF-8").strip()
                 other = item[1:10]
                 self.word_dict[word] = other
 
+        negative_word_file = file(negative_word_path, "r")
+        lines = negative_word_file.readlines()
+        for line in lines:
+            line = line.encode("UTF-8").strip()
+            if line.isspace():
+                continue
+            self.negative_word_set.add(line)
+        negative_word_file.close()
+
     def get_word_semantic(self, word_list):
         semantic_list = list()
-        for word in word_list:
+        counter = 0
+        while counter < len(word_list):
+            word = word_list[counter].strip()
             word_semantic_dict = dict({"word":word})
             if self.word_dict.has_key(word):
                 meaning = self.word_dict[word]
@@ -35,7 +47,15 @@ class DutExtractor(object):
                 word_semantic_dict["meaning"] = kind_meaning
                 word_semantic_dict["semantic_strength"] = meaning[4]
                 word_semantic_dict["semantic_polagiry"] = meaning[5]
+                last_pos = counter - 1
+                last_last_pos = counter - 2
+                if (last_pos >= 0 and word_list[last_pos] in self.negative_word_set) or (last_last_pos >= 0 and word_list[last_last_pos] in self.negative_word_set):
+                    if meaning[5] == "1":
+                        word_semantic_dict["semantic_polagiry"] = "2"
+                    elif meaning[5] == "2":
+                        word_semantic_dict["semantic_polagiry"] = "1"
             semantic_list.append(word_semantic_dict)
+            counter += 1
         return semantic_list
 
     def get_kind_meaning(self, kind):
@@ -84,7 +104,7 @@ class DutExtractor(object):
 
 if __name__ == '__main__':
     logger.debug("a")
-    dut_extractor = DutExtractor()
+    dut_extractor = DutExtractor("dut_sentiment_words.csv", "../common_lib/negative_words.txt")
     word_list = list()
     final_word_list = list()
     sentence = sys.argv[1].strip()
