@@ -8,11 +8,11 @@ class DutExtractorFactory(object):
     single_dut_extractor = None
 
     @staticmethod
-    def get_dut_extractor(input_file, negative_file):
+    def get_dut_extractor(input_file):
         if DutExtractorFactory.single_dut_extractor is None:
             lock.acquire()
             if DutExtractorFactory.single_dut_extractor is None:
-                DutExtractorFactory.single_dut_extractor = DutExtractor(input_file, negative_file)
+                DutExtractorFactory.single_dut_extractor = DutExtractor(input_file)
             lock.release()
         return DutExtractorFactory.single_dut_extractor
 

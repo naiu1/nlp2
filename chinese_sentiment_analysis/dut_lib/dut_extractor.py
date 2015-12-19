@@ -11,7 +11,7 @@ from common import log_tool
 logger = log_tool.Logging.get_logger()
 
 class DutExtractor(object):
-    def __init__(self, dut_lib_file_path, negative_word_path):
+    def __init__(self, dut_lib_file_path):
         self.word_dict = dict()
         self.negative_word_set = set()
         with open(dut_lib_file_path,'r') as f:
@@ -20,15 +20,6 @@ class DutExtractor(object):
                 word = item[0].encode("UTF-8").strip()
                 other = item[1:10]
                 self.word_dict[word] = other
-
-        negative_word_file = file(negative_word_path, "r")
-        lines = negative_word_file.readlines()
-        for line in lines:
-            line = line.encode("UTF-8").strip()
-            if line.isspace():
-                continue
-            self.negative_word_set.add(line)
-        negative_word_file.close()
 
     def get_word_semantic(self, word_list):
         semantic_list = list()
@@ -47,13 +38,6 @@ class DutExtractor(object):
                 word_semantic_dict["meaning"] = kind_meaning
                 word_semantic_dict["semantic_strength"] = meaning[4]
                 word_semantic_dict["semantic_polagiry"] = meaning[5]
-                last_pos = counter - 1
-                last_last_pos = counter - 2
-                if (last_pos >= 0 and word_list[last_pos] in self.negative_word_set) or (last_last_pos >= 0 and word_list[last_last_pos] in self.negative_word_set):
-                    if meaning[5] == "1":
-                        word_semantic_dict["semantic_polagiry"] = "2"
-                    elif meaning[5] == "2":
-                        word_semantic_dict["semantic_polagiry"] = "1"
             semantic_list.append(word_semantic_dict)
             counter += 1
         return semantic_list
