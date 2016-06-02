@@ -11,75 +11,87 @@ from common import log_tool
 logger = log_tool.Logging.get_logger()
 
 class DutExtractor(object):
-    def __init__(self):
+    def __init__(self, dut_lib_file_path):
         self.word_dict = dict()
-        with open('dut_sentiment_words.csv','r') as f:
+        self.negative_word_set = set()
+        with open(dut_lib_file_path,'r') as f:
             reader = csv.reader(f)
             for item in reader:
-                word = item[0].encode("UTF-8")
+                word = item[0].encode("UTF-8").strip()
                 other = item[1:10]
                 self.word_dict[word] = other
 
-    def get_word_meaning(self, word_list):
-        print "想要表达的情感:"
-        for word in word_list:
+    def get_word_semantic(self, word_list):
+        semantic_list = list()
+        counter = 0
+        while counter < len(word_list):
+            word = word_list[counter].strip()
+            word_semantic_dict = dict({"word":word})
             if self.word_dict.has_key(word):
                 meaning = self.word_dict[word]
                 kind = meaning[3]
-                sentiment_strength = meaning[4]
-                sentiment_polarity = meaning[5]
-                print self.get_kind_meaning(kind), "强烈程度:", sentiment_strength
+                kind_meaning = self.get_kind_meaning(kind)
+                word_semantic_dict["word_property"] = meaning[0]
+                word_semantic_dict["word_meaning_count"] = meaning[1]
+                word_semantic_dict["word_property_id"] = meaning[2]
+                word_semantic_dict["kind"] = meaning[3]
+                word_semantic_dict["meaning"] = kind_meaning
+                word_semantic_dict["semantic_strength"] = meaning[4]
+                word_semantic_dict["semantic_polagiry"] = meaning[5]
+            semantic_list.append(word_semantic_dict)
+            counter += 1
+        return semantic_list
 
     def get_kind_meaning(self, kind):
         if kind == "PA":
             return "快乐"
-        if kind == "PE":
+        elif kind == "PE":
             return "安心"
-        if kind == "PD":
+        elif kind == "PD":
             return "尊敬"
-        if kind == "PH":
+        elif kind == "PH":
             return "赞扬"
-        if kind == "PG":
+        elif kind == "PG":
             return "相信"
-        if kind == "PB":
+        elif kind == "PB":
             return "喜爱"
-        if kind == "PK":
+        elif kind == "PK":
             return "祝愿"
-        if kind == "NA":
+        elif kind == "NA":
             return "愤怒"
-        if kind == "NB":
+        elif kind == "NB":
             return "悲伤"
-        if kind == "NJ":
+        elif kind == "NJ":
             return "失望"
-        if kind == "NH":
+        elif kind == "NH":
             return "内疚"
-        if kind == "PF":
+        elif kind == "PF":
             return "思念"
-        if kind == "NI":
+        elif kind == "NI":
             return "慌张"
-        if kind == "NC":
+        elif kind == "NC":
             return "恐惧"
-        if kind == "NG":
+        elif kind == "NG":
             return "羞愧"
-        if kind == "NE":
+        elif kind == "NE":
             return "烦闷"
-        if kind == "ND":
+        elif kind == "ND":
             return "憎恶"
-        if kind == "NN":
+        elif kind == "NN":
             return "贬责"
-        if kind == "NK":
+        elif kind == "NK":
             return "妒忌"
-        if kind == "NL":
+        elif kind == "NL":
             return "怀疑"
-        if kind == "PC":
+        elif kind == "PC":
             return "惊奇"
 
 if __name__ == '__main__':
     logger.debug("a")
-    dut_extractor = DutExtractor()
+    dut_extractor = DutExtractor("dut_sentiment_words.csv", "../common_lib/negative_words.txt")
     word_list = list()
     final_word_list = list()
-    sentence = sys.argv[1]
+    sentence = sys.argv[1].strip()
     length = len(sentence)
     bit_length = length / 3
     counter = 0
@@ -95,4 +107,9 @@ if __name__ == '__main__':
     for item in word_list:
         item = item.encode("UTF-8")
         final_word_list.append(item)
-    dut_extractor.get_word_meaning(final_word_list)
+    result_list = dut_extractor.get_word_semantic(final_word_list)
+    for item in result_list:
+        if item.has_key("meaning"):
+            print item["word"], item
+        else:
+            print item["word"], item
