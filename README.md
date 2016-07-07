@@ -38,3 +38,5 @@ Contact:
 QQ:       578312618
 
 Skype:    shichao.qu@live.cn
+
+WeChat:   Kevin00100
