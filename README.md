@@ -15,13 +15,7 @@ Anyone who is interested in this field, please contact me, I will appreciate it 
 
 * Setup
 1. Set up the python library jibe, use the following link to set it up: http://www.oschina.net/p/jieba
-
-
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+2. 将代码库克隆到本地，
 
 ### Contribution guidelines ###
 
