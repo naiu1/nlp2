@@ -1,5 +1,8 @@
 #!/usr/bin/python
-#encoding=utf-8
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 import jieba
 
 class JiebaParticipator(object):

@@ -1,6 +1,10 @@
 #!/usr/bin/python
 from dut_extractor import DutExtractor
 import thread
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 lock = thread.allocate_lock()
 

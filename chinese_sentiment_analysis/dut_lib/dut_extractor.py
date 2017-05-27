@@ -1,5 +1,8 @@
 #!/usr/bin/python
-# coding: utf-8
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 import csv
 import sys
@@ -26,7 +29,7 @@ class DutExtractor(object):
         counter = 0
         while counter < len(word_list):
             word = word_list[counter].strip()
-            word_semantic_dict = dict({"word":word})
+            word_semantic_dict = dict({"word" : word})
             if self.word_dict.has_key(word):
                 meaning = self.word_dict[word]
                 kind = meaning[3]
@@ -88,7 +91,8 @@ class DutExtractor(object):
 
 if __name__ == '__main__':
     logger.debug("a")
-    dut_extractor = DutExtractor("dut_sentiment_words.csv", "../common_lib/negative_words.txt")
+    dut_extractor = DutExtractor("dut_sentiment_words.csv")
+    #dut_extractor = DutExtractor("dut_sentiment_words.csv", "../common_lib/negative_words.txt")
     word_list = list()
     final_word_list = list()
     sentence = sys.argv[1].strip()
@@ -113,3 +117,7 @@ if __name__ == '__main__':
             print item["word"], item
         else:
             print item["word"], item
+        for k,v in item.items():
+            print k, v
+
+
