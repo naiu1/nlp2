@@ -127,7 +127,7 @@ class ArticleAnalysis(object):
         article_semantic_result = bsa_algorithm.cal_semantic_value(article_semantic_result)
         return article_semantic_result
 
-    # 程序入口2，如果相对一个文本进行情感分析，可以调用file_semantic_analysis这个方法
+    # 程序入口2，如果想对一个文本进行情感分析，可以调用file_semantic_analysis这个方法
     @staticmethod
     def file_semantic_analysis(file_path, library, algorithm):
         segment_list = ArticleAnalysis.get_segment_list_from_input_file(file_path)
@@ -135,7 +135,7 @@ class ArticleAnalysis(object):
         article_result = ArticleAnalysis.semantic_analysis(segment_partition_list, library, algorithm)
         return article_result
 
-    # 程序入口1，如果相对一段话进行情感分析，可以调用string_semantic_analysis这个方法
+    # 程序入口1，如果对一段话进行情感分析，可以调用string_semantic_analysis这个方法
     @staticmethod
     def string_semantic_analysis(input_string, library, algorithm):
         segment_list = ArticleAnalysis.get_segment_list(input_string)
