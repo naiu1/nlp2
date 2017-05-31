@@ -15,7 +15,10 @@ Anyone who is interested in this field, please contact me, I will appreciate it 
 
 * Setup
 1. Set up the python library jibe, use the following link to set it up: http://www.oschina.net/p/jieba
-2. 将代码库克隆到本地，
+
+2. 将代码库克隆到本地，使用semantic-analysis-tool/chinese_sentiment_analysis/chinese_article_analysis/article_analysis.py来对中文文本或者字符串进行情感分析
+
+3. 情感词库的维护：
 
 ### Contribution guidelines ###
 
