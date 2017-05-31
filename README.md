@@ -17,7 +17,7 @@ Anyone who is interested in this field, please contact me, I will appreciate it 
 
 1. 安装jieba分词工具: http://www.oschina.net/p/jieba
 
-2. 将代码库克隆到本地，使用semantic-analysis-tool/chinese_sentiment_analysis/chinese_article_analysis/article_analysis.py来对中文文本或者字符串进行情感分析
+2. 将代码库克隆到本地，使用semantic-analysis-tool/chinese_sentiment_analysis/chinese_article_analysis/article_analysis.py来对中文文本或者字符串进行情感分析（工具的使用注解，请参考article_analysis.py中的注释）
 
 3. 情感词库的维护：目前，只支持使用大连理工大学情感词库来进行情感分析，可以在semantic-analysis-tool/chinese_sentiment_analysis/dut_lib/dut_sentiment_words.csv中维护已有和自己的情感词库
 
