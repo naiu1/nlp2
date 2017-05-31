@@ -13,6 +13,24 @@ from dut_extractor import DutExtractor
 from dut_extractor_factory import DutExtractorFactory
 from bsa_algorithm import BsaAlgorithm
 
+################################################################
+# 注释：
+# 程序的入口是：string_semantic_analysis和file_semantic_analysis方法
+# 返回结果为json串，格式如下：
+# {
+#     'score' : 1;
+#     'score_comment' : '正：正向情感；负：负向情感。情感值越大，情感越强。';
+#     'details' : [
+#                  {'meaning' : '赞美', 'strength' : 5},
+#                  {'meaning' : '佩服', 'strength' : 3}
+#                  ]
+# }
+#
+# score字段，是整体的情感得分；
+# score_comment字段，是对score含义的注释，正：正向情感；负：负向情感。情感值越大，情感越强。
+# details字段，详细的介绍了文本体现出的每个子情感分类的情感度,meaning字段表示子分类，strength表示这个子分类的情感度。
+################################################################
+
 COMMENT = "正：正向情感；负：负向情感。情感值越大，情感越强。"
 
 class ArticleAnalysis(object):
@@ -65,7 +83,6 @@ class ArticleAnalysis(object):
         for segment_result in article_semantic_result:
             for sentence_result in segment_result:
                 for word_result in sentence_result:
-                    print word_result
                     if word_result.has_key('meaning') is False:
                         continue
                     tmp_meaing = meaning_map.get(word_result['meaning'], dict())
@@ -79,8 +96,6 @@ class ArticleAnalysis(object):
             tmp['meaning'] = item
             meaning_list.append(tmp)
         result_map['details'] = meaning_list
-        print "***************************************"
-        print article_semantic_result
         return result_map
 
     @staticmethod
@@ -112,6 +127,7 @@ class ArticleAnalysis(object):
         article_semantic_result = bsa_algorithm.cal_semantic_value(article_semantic_result)
         return article_semantic_result
 
+    # 程序入口2，如果相对一个文本进行情感分析，可以调用file_semantic_analysis这个方法
     @staticmethod
     def file_semantic_analysis(file_path, library, algorithm):
         segment_list = ArticleAnalysis.get_segment_list_from_input_file(file_path)
@@ -119,6 +135,7 @@ class ArticleAnalysis(object):
         article_result = ArticleAnalysis.semantic_analysis(segment_partition_list, library, algorithm)
         return article_result
 
+    # 程序入口1，如果相对一段话进行情感分析，可以调用string_semantic_analysis这个方法
     @staticmethod
     def string_semantic_analysis(input_string, library, algorithm):
         segment_list = ArticleAnalysis.get_segment_list(input_string)
@@ -134,3 +151,4 @@ if __name__ == '__main__':
     detail = result['details']
     for item in detail:
         print item['meaning'], item['strength']
+
