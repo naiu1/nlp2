@@ -14,6 +14,7 @@ Anyone who is interested in this field, please contact me, I will appreciate it 
 ### How do I get set up? ###
 
 * Setup
+
 1. 安装jieba分词工具: http://www.oschina.net/p/jieba
 
 2. 将代码库克隆到本地，使用semantic-analysis-tool/chinese_sentiment_analysis/chinese_article_analysis/article_analysis.py来对中文文本或者字符串进行情感分析
